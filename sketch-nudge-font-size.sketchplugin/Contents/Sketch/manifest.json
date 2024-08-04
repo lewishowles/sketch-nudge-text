@@ -5,14 +5,14 @@
     {
       "name": "Increase font size",
       "identifier": "sketch-nudge-font-size.increase-font-size",
-      "script": "./increase-font-size.js",
-      "shortcut" : "ctrl option ↑"
+      "script": "__increase-font-size.js",
+      "shortcut": "ctrl option ↑"
     },
     {
       "name": "Decrease font size",
       "identifier": "sketch-nudge-font-size.decrease-font-size",
-      "script": "./decrease-font-size.js",
-      "shortcut" : "ctrl option ↓"
+      "script": "__decrease-font-size.js",
+      "shortcut": "ctrl option ↓"
     }
   ],
   "menu": {
@@ -21,5 +21,11 @@
       "sketch-nudge-font-size.increase-font-size",
       "sketch-nudge-font-size.decrease-font-size"
     ]
-  }
+  },
+  "version": "0.1.0",
+  "description": "Quickly increase or decrease the selected text layer(s) font size based on available shared text styles from a library",
+  "name": "sketch-nudge-font-size",
+  "identifier": "sketch-nudge-font-size",
+  "disableCocoaScriptPreprocessor": true,
+  "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
 }
