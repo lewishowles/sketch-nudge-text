@@ -1,4 +1,5 @@
 {
+  "name": "Sketch nudge font size",
   "$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
   "icon": "icon.png",
   "commands": [
@@ -24,7 +25,6 @@
   },
   "version": "0.1.0",
   "description": "Quickly increase or decrease the selected text layer(s) font size based on available shared text styles from a library",
-  "name": "sketch-nudge-font-size",
   "identifier": "sketch-nudge-font-size",
   "disableCocoaScriptPreprocessor": true,
   "appcast": "https://raw.githubusercontent.com//master/.appcast.xml"
