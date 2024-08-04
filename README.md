@@ -23,6 +23,5 @@ The plugin—currently—looks for a library named "Fonts". From that, it retrie
 
 ## Installation
 
-- [Download](../../releases/latest/download/nudge-font-size.sketchplugin.zip) the latest release of the plugin
-- Un-zip
-- Double-click on `nudge-font-size.sketchplugin`
+- Download and unzip the [latest release](../../releases/latest) of the plugin
+- Double-click on `sketch-nudge-font-size.sketchplugin`
