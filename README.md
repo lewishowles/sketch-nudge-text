@@ -1,6 +1,6 @@
-# Nudge font size
+# Sketch nudge font size
 
-The Nudge font size plugin allows you to "nudge" font sizes by selecting an appropriate text style based on a given font library. This allows jumping between a defined set of text styles with a keyboard shortcut.
+This plugin allows you to "nudge" the font size of the selected text layer(s) through a list of pre-defined text styles from a library, speeding up a design workflow.
 
 ## Why?
 
