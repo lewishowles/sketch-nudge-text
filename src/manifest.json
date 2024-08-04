@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "icon": "icon.png",
+  "commands": [
+    {
+      "name": "Increase font size",
+      "identifier": "nudge-font-size.increase-font-size",
+      "script": "./increase-font-size.js",
+      "shortcut" : "ctrl option ↑"
+    },
+    {
+      "name": "Decrease font size",
+      "identifier": "nudge-font-size.decrease-font-size",
+      "script": "./decrease-font-size.js",
+      "shortcut" : "ctrl option ↓"
+    }
+  ],
+  "menu": {
+    "title": "Nudge font size",
+    "items": [
+      "nudge-font-size.increase-font-size",
+      "nudge-font-size.decrease-font-size"
+    ]
+  }
+}
