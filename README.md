@@ -15,9 +15,15 @@ The plugin—currently—looks for a library named "Fonts". From that, it retrie
 - If multiple layers are selected, each is treated separately, allowing different sizes to be nudged simultaneously.
 - If any of the layers selected don't have an applied text style, a default size—currently 16—will be applied.
 
+For example, if you have text styles named after their text sizes `12`, `14`, `16`, `18` and `20`:
+
+- Selecting a layer with the style `16` applied and increasing the font size will apply the style `18`.
+- Selecting a layer with no style applied will select the style `16`.
+
+When changing the style of text, the current colour variable and font weight are re-applied where possible.
+
 ## What next?
 
-- For simplicity, my list of font sizes are all a base weight and colour. When nudging, any modifications are lost. It would be nice for those to be re-applied after nudging.
 - The library containing the list of available fonts might not be called "Fonts". It would be nice for that name to be set via user command and stored for future use.
 - The default size of 16 may not be appropriate for all documents. It would be nice for that size to be set via user command and stored for future use.
 

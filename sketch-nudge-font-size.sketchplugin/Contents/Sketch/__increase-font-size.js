@@ -159,6 +159,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialiseAvailableFontStyles", function() { return initialiseAvailableFontStyles; });
 var sketch = __webpack_require__(/*! sketch/dom */ "sketch/dom");
 var document = sketch.getSelectedDocument();
+var libraries = sketch.getLibraries();
 var selectedLayers = document.selectedLayers.layers;
 var _require = __webpack_require__(/*! ./utils */ "./src/utils.js"),
   dd = _require.dd,
@@ -192,6 +193,9 @@ function decreaseFontSize() {
  * Apply the next font size, either larger or smaller depending on the choice
  * to increase or decrease.
  *
+ * This also attempts to apply the existing colour variable and font weight to
+ * the new text style, meaning they don't have to be re-set.
+ *
  * @param  {boolean}  increase
  *     Whether to increase the font size, or decrease it.
  */
@@ -206,8 +210,22 @@ function applyNextFontSize() {
     if (!isNonEmptyObject(nextStyle)) {
       dd("Couldn't determine the appropriate next style");
     }
+
+    // Retrieve the current colour swatch applied to the layer before
+    // updating it.
+    var swatch = getTextColourSwatchForLayer(layer);
+    // Retrieve the current font weight.
+    var originalFontWeight = layer.style.fontWeight;
     layer.sharedStyleId = nextStyle.id;
     layer.style = nextStyle.style;
+
+    // Reinstate the original colour.
+    if (swatch && swatch.referencingColor) {
+      layer.style.textColor = swatch.referencingColor;
+    }
+
+    // Reinstate the original font weight.
+    layer.style.fontWeight = originalFontWeight;
   });
 }
 
@@ -352,6 +370,32 @@ function getNextStyle(currentSharedStyleId, referenceOrder) {
     return referenceOrder[currentStyleIndex - 1];
   }
   return referenceOrder[currentStyleIndex + 1];
+}
+
+/**
+ * For the given layer, retrieve a reference to the matching colour swatch,
+ * based on the "textColour" of the given layer.
+ *
+ * If no swatch is found, returns undefined;
+ *
+ * todo: Only perform these imports once per script run
+ *
+ * @param  {object}  layer
+ *     The layer from which to retrieve a matching swatch.
+ */
+function getTextColourSwatchForLayer(layer) {
+  var originalColour = layer.style.textColor;
+  var matchingSwatch;
+  libraries.forEach(function (library) {
+    var importableSwatches = library.getImportableSwatchReferencesForDocument(document);
+    importableSwatches.forEach(function (swatch) {
+      var importedSwatch = swatch.import();
+      if (importedSwatch.color === originalColour) {
+        matchingSwatch = importedSwatch;
+      }
+    });
+  });
+  return matchingSwatch;
 }
 
 /***/ }),

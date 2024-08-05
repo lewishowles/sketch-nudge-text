@@ -23,7 +23,7 @@
       "sketch-nudge-font-size.decrease-font-size"
     ]
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Quickly increase or decrease the selected text layer(s) font size based on available shared text styles from a library",
   "identifier": "sketch-nudge-font-size",
   "disableCocoaScriptPreprocessor": true,

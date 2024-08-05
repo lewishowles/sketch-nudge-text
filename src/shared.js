@@ -1,5 +1,6 @@
 const sketch = require("sketch/dom");
 const document = sketch.getSelectedDocument();
+const libraries = sketch.getLibraries();
 const selectedLayers = document.selectedLayers.layers;
 const { dd, getFriendlyDisplay, isNonEmptyArray, isNonEmptyObject, isNonEmptyString, isNumber } = require("./utils");
 
@@ -27,6 +28,9 @@ export function decreaseFontSize() {
  * Apply the next font size, either larger or smaller depending on the choice
  * to increase or decrease.
  *
+ * This also attempts to apply the existing colour variable and font weight to
+ * the new text style, meaning they don't have to be re-set.
+ *
  * @param  {boolean}  increase
  *     Whether to increase the font size, or decrease it.
  */
@@ -41,8 +45,22 @@ function applyNextFontSize(increase = true) {
 			dd("Couldn't determine the appropriate next style");
 		}
 
+		// Retrieve the current colour swatch applied to the layer before
+		// updating it.
+		const swatch = getTextColourSwatchForLayer(layer);
+		// Retrieve the current font weight.
+		const originalFontWeight = layer.style.fontWeight;
+
 		layer.sharedStyleId = nextStyle.id;
 		layer.style = nextStyle.style;
+
+		// Reinstate the original colour.
+		if (swatch && swatch.referencingColor) {
+			layer.style.textColor = swatch.referencingColor;
+		}
+
+		// Reinstate the original font weight.
+		layer.style.fontWeight = originalFontWeight;
 	});
 }
 
@@ -185,4 +203,35 @@ function getNextStyle(currentSharedStyleId, referenceOrder, forwards = true) {
 	}
 
 	return referenceOrder[currentStyleIndex + 1];
+}
+
+/**
+ * For the given layer, retrieve a reference to the matching colour swatch,
+ * based on the "textColour" of the given layer.
+ *
+ * If no swatch is found, returns undefined;
+ *
+ * todo: Only perform these imports once per script run
+ *
+ * @param  {object}  layer
+ *     The layer from which to retrieve a matching swatch.
+ */
+function getTextColourSwatchForLayer(layer) {
+	const originalColour = layer.style.textColor;
+
+	let matchingSwatch;
+
+	libraries.forEach(library => {
+		const importableSwatches = library.getImportableSwatchReferencesForDocument(document);
+
+		importableSwatches.forEach(swatch => {
+			const importedSwatch = swatch.import();
+
+			if (importedSwatch.color === originalColour) {
+				matchingSwatch = importedSwatch;
+			}
+		});
+	});
+
+	return matchingSwatch;
 }
