@@ -1,26 +1,40 @@
 {
-  "name": "Sketch nudge font size",
-  "$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
-  "icon": "icon.png",
-  "commands": [
-    {
-      "name": "Increase font size",
-      "identifier": "sketch-nudge-font-size.increase-font-size",
-      "script": "./increase-font-size.js",
-      "shortcut" : "ctrl option ↑"
-    },
-    {
-      "name": "Decrease font size",
-      "identifier": "sketch-nudge-font-size.decrease-font-size",
-      "script": "./decrease-font-size.js",
-      "shortcut" : "ctrl option ↓"
-    }
-  ],
-  "menu": {
-    "title": "Nudge font size",
-    "items": [
-      "sketch-nudge-font-size.increase-font-size",
-      "sketch-nudge-font-size.decrease-font-size"
-    ]
-  }
+	"name": "Sketch nudge text",
+	"$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+	"icon": "icon.png",
+	"commands": [
+		{
+			"name": "Increase font size",
+			"identifier": "sketch-nudge-text.increase-font-size",
+			"script": "./increase-font-size.js",
+			"shortcut" : "ctrl option ↑"
+		},
+		{
+			"name": "Decrease font size",
+			"identifier": "sketch-nudge-text.decrease-font-size",
+			"script": "./decrease-font-size.js",
+			"shortcut" : "ctrl option ↓"
+		},
+		{
+			"name": "Increase font weight",
+			"identifier": "sketch-nudge-text.increase-font-weight",
+			"script": "./increase-font-weight.js",
+			"shortcut" : "ctrl option →"
+		},
+		{
+			"name": "Decrease font weight",
+			"identifier": "sketch-nudge-text.decrease-font-weight",
+			"script": "./decrease-font-weight.js",
+			"shortcut" : "ctrl option ←"
+		}
+	],
+	"menu": {
+		"title": "Nudge text",
+		"items": [
+			"sketch-nudge-text.increase-font-size",
+			"sketch-nudge-text.decrease-font-size",
+			"sketch-nudge-text.increase-font-weight",
+			"sketch-nudge-text.decrease-font-weight"
+		]
+	}
 }

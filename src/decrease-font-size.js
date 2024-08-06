@@ -13,8 +13,8 @@
  * If no current style is applied, the default, base style is applied.
  */
 
-const { decreaseFontSize } = require("./shared");
+const { applyNextFontSize } = require("./shared");
 
 export default function() {
-	decreaseFontSize();
+	applyNextFontSize(true);
 }
