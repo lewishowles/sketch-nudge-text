@@ -37,7 +37,7 @@
       "sketch-nudge-text.decrease-font-weight"
     ]
   },
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Quickly nudge text between font sizes, weights, and colours",
   "identifier": "sketch-nudge-text",
   "disableCocoaScriptPreprocessor": true,

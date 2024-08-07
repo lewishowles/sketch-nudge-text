@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.4.1 - 2024/08/06
+
+Fixes an incorrect import path for font size changes that occurred during file restructure.
+
+## v0.4.0 - 2024/08/06
+
+Added two new commands:
+
+- **Increase font weight** - to select the next font weight from a pre-defined list
+- **Decrease font weight** - to select the previous font weight from a pre-defined list
+
+### Limitations
+
+Currently, the list of weights is pre-defined and includes Regular, Medium, Semibold and Bold.
+
 ## v0.3.0 - 2024/08/05
 
 - The current text colour variable and font weight are re-applied after choosing the next text style
