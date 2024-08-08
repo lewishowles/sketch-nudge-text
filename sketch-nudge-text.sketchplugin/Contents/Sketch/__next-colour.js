@@ -88,10 +88,110 @@ var exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/decrease-font-weight.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/next-colour.js");
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayLikeToArray.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithHoles.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/nonIterableRest.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableRest.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./node_modules/@babel/runtime/helpers/slicedToArray.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/slicedToArray.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(/*! ./arrayWithHoles.js */ "./node_modules/@babel/runtime/helpers/arrayWithHoles.js");
+var iterableToArrayLimit = __webpack_require__(/*! ./iterableToArrayLimit.js */ "./node_modules/@babel/runtime/helpers/iterableToArrayLimit.js");
+var unsupportedIterableToArray = __webpack_require__(/*! ./unsupportedIterableToArray.js */ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js");
+var nonIterableRest = __webpack_require__(/*! ./nonIterableRest.js */ "./node_modules/@babel/runtime/helpers/nonIterableRest.js");
+function _slicedToArray(r, e) {
+  return arrayWithHoles(r) || iterableToArrayLimit(r, e) || unsupportedIterableToArray(r, e) || nonIterableRest();
+}
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
 
 /***/ "./node_modules/@babel/runtime/helpers/typeof.js":
 /*!*******************************************************!*\
@@ -113,25 +213,212 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 
 /***/ }),
 
-/***/ "./src/decrease-font-weight.js":
-/*!*************************************!*\
-  !*** ./src/decrease-font-weight.js ***!
-  \*************************************/
+/***/ "./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ "./node_modules/@babel/runtime/helpers/arrayLikeToArray.js");
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? arrayLikeToArray(r, a) : void 0;
+  }
+}
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ "./src/colour.js":
+/*!***********************!*\
+  !*** ./src/colour.js ***!
+  \***********************/
+/*! exports provided: applyNextColour, initialiseAvailableColours */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyNextColour", function() { return applyNextColour; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialiseAvailableColours", function() { return initialiseAvailableColours; });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+
+var _require = __webpack_require__(/*! ./utils */ "./src/utils.js"),
+  dd = _require.dd,
+  getFriendlyDisplay = _require.getFriendlyDisplay,
+  getNextIndex = _require.getNextIndex,
+  isNonEmptyArray = _require.isNonEmptyArray,
+  isNonEmptyObject = _require.isNonEmptyObject,
+  isNonEmptyString = _require.isNonEmptyString;
+var _require2 = __webpack_require__(/*! ./shared */ "./src/shared.js"),
+  getLibraryByName = _require2.getLibraryByName,
+  getSelectedTextLayers = _require2.getSelectedTextLayers,
+  getTextColourSwatchForLayer = _require2.getTextColourSwatchForLayer;
+var sketch = __webpack_require__(/*! sketch/dom */ "sketch/dom");
+var document = sketch.getSelectedDocument();
+var defaultColourName = "grey/600";
+
+/**
+ * Apply the next text colour, depending on the choice of direction. If we reach
+ * the end of the list, wrap back to the start.
+ *
+ * @param  {boolean}  reverse
+ *     Whether to reverse the direction, decreasing font order of colours.
+ */
+function applyNextColour() {
+  var reverse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var textLayers = getSelectedTextLayers();
+  if (!isNonEmptyArray(textLayers)) {
+    dd("Please select a layer");
+  }
+  var referenceOrder = initialiseAvailableColours();
+  textLayers.forEach(function (layer) {
+    var currentColour = getTextColourSwatchForLayer(layer);
+    var nextColour = getNextColour(currentColour, referenceOrder, reverse);
+    if (!isNonEmptyObject(nextColour)) {
+      dd("Couldn't determine the appropriate next colour");
+    }
+    if (nextColour.referencingColor) {
+      layer.style.textColor = nextColour.referencingColor;
+    }
+  });
+}
+
+/**
+ * Perform the necessary actions to retrieve the list of available colours from
+ * the given library.
+ */
+function initialiseAvailableColours() {
+  // Get the desired colour library by name.
+  var colourLibrary = getLibraryByName("Colours");
+
+  // Import any found colours into the current document.
+  return importColoursFromLibrary(colourLibrary);
+}
+
+/**
+ * Given a library reference, import all text styles into the current document
+ * for access by the script.
+ *
+ * @param  {object}  library
+ *     The library from which to import text styles.
+ */
+function importColoursFromLibrary(library) {
+  if (!isNonEmptyObject(library)) {
+    dd("Expected non-empty object <library>, received ".concat(getFriendlyDisplay(library), "."));
+  }
+  var importableColours = library.getImportableSwatchReferencesForDocument(document);
+  if (!isNonEmptyArray(importableColours)) {
+    dd("No importable text styles could be found in the library \"".concat(libraryName, "\"."));
+  }
+
+  // Import all shared text styles into the document, just in case.
+  var styles = [];
+  importableColours.forEach(function (style) {
+    return styles.push(style.import());
+  });
+  return styles;
+}
+
+/**
+ * Get the next appropriate colour from the provided reference. For colours
+ * labelled "colour/shade", we ignore shades and look for the next primary
+ * colour.
+ *
+ * If we're at the end of the reference array, we wrap to the other end.
+ *
+ * @param  {object}  currentSwatch
+ *     The current colour swatch applied to the layer.
+ * @param  {array}  referenceOrder
+ *     The list of colours to use as a reference.
+ * @param  {boolean}  reverse
+ *     Whether to reverse direction, moving backwards.
+ */
+function getNextColour(currentSwatch, referenceOrder) {
+  var reverse = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  // If we don't have valid reference, we can't continue, as we can't pick a
+  // style from nothing.
+  if (!isNonEmptyArray(referenceOrder)) {
+    dd("Couldn't find the list of available colours to reference");
+  }
+  var currentColour = referenceOrder.find(function (reference) {
+    return reference.name === currentSwatch.name;
+  });
+
+  // If we can't find a current colour, revert to a default.
+  if (!isNonEmptyObject(currentColour)) {
+    return referenceOrder.find(function (reference) {
+      return reference.name === defaultColourName;
+    });
+  }
+  var uniqueColours = getUniqueColoursWithShade(referenceOrder, currentColour.name);
+  var currentIndex = uniqueColours.findIndex(function (swatch) {
+    return swatch.name === currentColour.name;
+  });
+  var nextIndex = getNextIndex(currentIndex, uniqueColours, {
+    reverse: reverse,
+    wrap: true
+  });
+  return uniqueColours[nextIndex];
+}
+
+/**
+ * Given all colours as a reference, reduce the list to a unique set of colours
+ * matching the same shade. For example, "red/600" would product "red/600",
+ * "blue/600", "purple/600", etc.
+ */
+function getUniqueColoursWithShade(referenceOrder, colourName) {
+  // If we don't have valid reference, we can't continue, as we can't pick a
+  // style from nothing.
+  if (!isNonEmptyArray(referenceOrder)) {
+    dd("Couldn't find the list of available colours to reference");
+  }
+  if (!isNonEmptyString(colourName)) {
+    dd("Expected non-empty string <colourName>, received ".concat(getFriendlyDisplay(colourName)));
+  }
+  var _colourName$split = colourName.split('/'),
+    _colourName$split2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_colourName$split, 2),
+    _colourName$split2$ = _colourName$split2[1],
+    desiredShade = _colourName$split2$ === void 0 ? "600" : _colourName$split2$;
+  return referenceOrder.filter(function (swatch) {
+    return swatch.name.includes("/".concat(desiredShade)) || swatch.name === "white";
+  });
+}
+
+/***/ }),
+
+/***/ "./src/next-colour.js":
+/*!****************************!*\
+  !*** ./src/next-colour.js ***!
+  \****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /**
- * Apply the previous font weight from the defined series of preferred weights.
- * If the current weight isn't in the series, the default "regular" weight is
- * chosen instead.
+ * Apply the next colour to the text.
+ *
+ * Font colours are imported based on a given library name. This is required so
+ * that all colours can be referenced from any document, even if that document
+ * doesn't yet use any of the colours from the library.
+ *
+ * The sequence of colours is determined by the arrangement of colours in the
+ * library - which is usually alphabetical.
+ *
+ * If no text colour can be found, the colours wrap back to the start of the
+ * list.
+ *
+ * If no colour can be found, a default grey 600 is applied.
  */
 
-var _require = __webpack_require__(/*! ./weight */ "./src/weight.js"),
-  applyNextFontWeight = _require.applyNextFontWeight;
+var _require = __webpack_require__(/*! ./colour */ "./src/colour.js"),
+  applyNextColour = _require.applyNextColour;
 /* harmony default export */ __webpack_exports__["default"] = (function () {
-  applyNextFontWeight(true);
+  applyNextColour();
 });
 
 /***/ }),
@@ -371,59 +658,6 @@ function dd(message) {
 
 /***/ }),
 
-/***/ "./src/weight.js":
-/*!***********************!*\
-  !*** ./src/weight.js ***!
-  \***********************/
-/*! exports provided: applyNextFontWeight */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyNextFontWeight", function() { return applyNextFontWeight; });
-var _require = __webpack_require__(/*! ./utils */ "./src/utils.js"),
-  dd = _require.dd,
-  getNextIndex = _require.getNextIndex,
-  isNonEmptyArray = _require.isNonEmptyArray;
-var _require2 = __webpack_require__(/*! ./shared */ "./src/shared.js"),
-  getSelectedTextLayers = _require2.getSelectedTextLayers;
-var referenceWeights = [5,
-// Regular
-6,
-// Medium
-8,
-// Semibold
-9 // Bold
-];
-
-/**
- * Apply the next font weight in the set of defined options.
- *
- * @param  {boolean}  reverse
- *     Whether to reverse the direction, decreasing font weight.
- */
-function applyNextFontWeight() {
-  var reverse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  var textLayers = getSelectedTextLayers();
-  if (!isNonEmptyArray(textLayers)) {
-    dd("Please select a layer");
-  }
-  textLayers.forEach(function (layer) {
-    var currentIndex = referenceWeights.findIndex(function (weight) {
-      return weight === layer.style.fontWeight;
-    });
-    var nextIndex = getNextIndex(currentIndex, referenceWeights, {
-      reverse: reverse
-    });
-    if (nextIndex < 0) {
-      dd("Couldn't determine the appropriate next weight");
-    }
-    layer.style.fontWeight = referenceWeights[nextIndex];
-  });
-}
-
-/***/ }),
-
 /***/ "sketch/dom":
 /*!*****************************!*\
   !*** external "sketch/dom" ***!
@@ -464,4 +698,4 @@ module.exports = require("sketch/ui");
 }
 globalThis['onRun'] = __skpm_run.bind(this, 'default')
 
-//# sourceMappingURL=__decrease-font-weight.js.map
+//# sourceMappingURL=__next-colour.js.map

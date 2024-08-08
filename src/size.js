@@ -1,8 +1,7 @@
-const { dd, getFriendlyDisplay, isNonEmptyArray, isNonEmptyObject, isNonEmptyString, isNumber } = require("./utils");
-const { getSelectedTextLayers } = require("./shared");
+const { dd, getFriendlyDisplay, isNonEmptyArray, isNonEmptyObject, isNumber } = require("./utils");
+const { getLibraryByName, getSelectedTextLayers, getTextColourSwatchForLayer } = require("./shared");
 const sketch = require("sketch/dom");
 const document = sketch.getSelectedDocument();
-const libraries = sketch.getLibraries();
 
 /**
  * Apply the next font size, either larger or smaller depending on the choice
@@ -55,10 +54,9 @@ export function applyNextFontSize(reverse = false) {
  */
 export function initialiseAvailableFontStyles() {
 	// Get the desired font library by name.
-	// todo: Make this user input that is stored for next time.
-	// todo: When the input is stored, allow it to be changed.
-	const libraryName = "Fonts";
-	const fontLibrary = getFontLibraryReference(libraryName);
+	// TODO: Make this user input that is stored for next time.
+	// TODO: When the input is stored, allow it to be changed.
+	const fontLibrary = getLibraryByName("Fonts");
 
 	// Import any found styles into the current document.
 	const importedTextStyles = importSharedTextStylesFromLibrary(fontLibrary);
@@ -66,28 +64,6 @@ export function initialiseAvailableFontStyles() {
 	// Retrieve our reference order for the document's shared text styles, based
 	// on increasing font size.
 	return sortTextStylesByFontSize(importedTextStyles);
-}
-
-/**
- * Given a library name, retrieve a reference to that library. If the library
- * cannot be found, halt execution and display a message to the user.
- *
- * @param  {string}  libraryName
- *     The name of the library that contains the font styles to use.
- */
-function getFontLibraryReference(libraryName) {
-	if (!isNonEmptyString(libraryName)) {
-        dd(`Expected non-empty string <libraryName>, received ${getFriendlyDisplay(libraryName)}.`);
-	}
-
-	const libraries = sketch.Library.getLibraries();
-	const fontLibrary = libraries.find(library => library.name === libraryName);
-
-	if (!fontLibrary) {
-        dd(`The style library "${libraryName}" couldn't be found.`);
-	}
-
-	return fontLibrary;
 }
 
 /**
@@ -184,35 +160,4 @@ function getNextStyle(currentSharedStyleId, referenceOrder, reverse = false) {
 	}
 
 	return referenceOrder[currentStyleIndex + 1];
-}
-
-/**
- * For the given layer, retrieve a reference to the matching colour swatch,
- * based on the "textColour" of the given layer.
- *
- * If no swatch is found, returns undefined;
- *
- * todo: Only perform these imports once per script run
- *
- * @param  {object}  layer
- *     The layer from which to retrieve a matching swatch.
- */
-function getTextColourSwatchForLayer(layer) {
-	const originalColour = layer.style.textColor;
-
-	let matchingSwatch;
-
-	libraries.forEach(library => {
-		const importableSwatches = library.getImportableSwatchReferencesForDocument(document);
-
-		importableSwatches.forEach(swatch => {
-			const importedSwatch = swatch.import();
-
-			if (importedSwatch.color === originalColour) {
-				matchingSwatch = importedSwatch;
-			}
-		});
-	});
-
-	return matchingSwatch;
 }

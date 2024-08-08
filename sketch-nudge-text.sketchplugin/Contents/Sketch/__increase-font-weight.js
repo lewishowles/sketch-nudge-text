@@ -140,13 +140,20 @@ var _require = __webpack_require__(/*! ./weight */ "./src/weight.js"),
 /*!***********************!*\
   !*** ./src/shared.js ***!
   \***********************/
-/*! exports provided: getSelectedTextLayers */
+/*! exports provided: getSelectedTextLayers, getLibraryByName, getTextColourSwatchForLayer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSelectedTextLayers", function() { return getSelectedTextLayers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLibraryByName", function() { return getLibraryByName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTextColourSwatchForLayer", function() { return getTextColourSwatchForLayer; });
+var _require = __webpack_require__(/*! ./utils */ "./src/utils.js"),
+  dd = _require.dd,
+  getFriendlyDisplay = _require.getFriendlyDisplay,
+  isNonEmptyString = _require.isNonEmptyString;
 var sketch = __webpack_require__(/*! sketch/dom */ "sketch/dom");
+var libraries = sketch.getLibraries();
 var document = sketch.getSelectedDocument();
 var selectedLayers = document.selectedLayers.layers;
 
@@ -158,6 +165,52 @@ function getSelectedTextLayers() {
   return selectedLayers.filter(function (layer) {
     return layer.type === "Text";
   });
+}
+
+/**
+ * Given a library name, retrieve a reference to that library. If the library
+ * cannot be found, halt execution and display a message to the user.
+ *
+ * @param  {string}  libraryName
+ *     The name of the library to retrieve.
+ */
+function getLibraryByName(libraryName) {
+  if (!isNonEmptyString(libraryName)) {
+    dd("Expected non-empty string <libraryName>, received ".concat(getFriendlyDisplay(libraryName), "."));
+  }
+  var libraries = sketch.Library.getLibraries();
+  var library = libraries.find(function (library) {
+    return library.name === libraryName;
+  });
+  if (!library) {
+    dd("The library \"".concat(libraryName, "\" couldn't be found."));
+  }
+  return library;
+}
+
+/**
+ * For the given layer, retrieve a reference to the matching colour swatch,
+ * based on the "textColour" of the given layer.
+ *
+ * If no swatch is found, returns undefined;
+ *
+ * @param  {object}  layer
+ *     The layer from which to retrieve a matching swatch.
+ */
+function getTextColourSwatchForLayer(layer) {
+  var originalColour = layer.style.textColor;
+  var matchingSwatch;
+  libraries.forEach(function (library) {
+    // TODO: Only perform these imports once per script run
+    var importableSwatches = library.getImportableSwatchReferencesForDocument(document);
+    importableSwatches.forEach(function (swatch) {
+      var importedSwatch = swatch.import();
+      if (importedSwatch.color === originalColour) {
+        matchingSwatch = importedSwatch;
+      }
+    });
+  });
+  return matchingSwatch;
 }
 
 /***/ }),

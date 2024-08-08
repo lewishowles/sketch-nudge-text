@@ -26,6 +26,18 @@
 			"identifier": "sketch-nudge-text.decrease-font-weight",
 			"script": "./decrease-font-weight.js",
 			"shortcut" : "ctrl option ←"
+		},
+		{
+			"name": "Next colour",
+			"identifier": "sketch-nudge-text.next-colour",
+			"script": "./next-colour.js",
+			"shortcut" : "ctrl option cmd →"
+		},
+		{
+			"name": "Previous colour",
+			"identifier": "sketch-nudge-text.previous-colour",
+			"script": "./previous-colour.js",
+			"shortcut" : "ctrl option cmd ←"
 		}
 	],
 	"menu": {
@@ -34,7 +46,9 @@
 			"sketch-nudge-text.increase-font-size",
 			"sketch-nudge-text.decrease-font-size",
 			"sketch-nudge-text.increase-font-weight",
-			"sketch-nudge-text.decrease-font-weight"
+			"sketch-nudge-text.decrease-font-weight",
+			"sketch-nudge-text.next-colour",
+			"sketch-nudge-text.previous-colour"
 		]
 	}
 }
