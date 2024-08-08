@@ -1,8 +1,14 @@
 const { dd, getFriendlyDisplay, getNextIndex, isNonEmptyArray, isNonEmptyObject, isNonEmptyString } = require("./utils");
 const { getLibraryByName, getSelectedTextLayers, getTextColourSwatchForLayer } = require("./shared");
 const sketch = require("sketch/dom");
+const Settings = require('sketch/settings');
 const document = sketch.getSelectedDocument();
+
+// The name of the colour to apply if no colour swatch is present on a text
+// layer.
 const defaultColourName = "grey/600";
+// The Settings key for the current shade variable.
+const CURRENT_SHADE_STORAGE_KEY = "howles:sketch-nudge-text:current-shade";
 
 /**
  * Apply the next text colour, depending on the choice of direction. If we reach
@@ -123,7 +129,14 @@ function getUniqueColoursWithShade(referenceOrder, colourName) {
 		dd(`Expected non-empty string <colourName>, received ${getFriendlyDisplay(colourName)}`);
 	}
 
-	const [, desiredShade = "600"] = colourName.split('/');
+	const previousShade = Settings.settingForKey(CURRENT_SHADE_STORAGE_KEY) || "600";
+
+	const [, desiredShade = previousShade] = colourName.split('/');
+
+	// Update the current shade to match that of the current colour. We do this
+	// on each move for simplicity, but also for completeness, as the shade may
+	// change between colour jumps.
+	Settings.setSettingForKey(CURRENT_SHADE_STORAGE_KEY, desiredShade)
 
 	return referenceOrder.filter(swatch => swatch.name.includes(`/${desiredShade}`) || swatch.name === "white");
 }

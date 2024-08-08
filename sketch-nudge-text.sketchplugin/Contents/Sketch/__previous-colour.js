@@ -258,8 +258,14 @@ var _require2 = __webpack_require__(/*! ./shared */ "./src/shared.js"),
   getSelectedTextLayers = _require2.getSelectedTextLayers,
   getTextColourSwatchForLayer = _require2.getTextColourSwatchForLayer;
 var sketch = __webpack_require__(/*! sketch/dom */ "sketch/dom");
+var Settings = __webpack_require__(/*! sketch/settings */ "sketch/settings");
 var document = sketch.getSelectedDocument();
+
+// The name of the colour to apply if no colour swatch is present on a text
+// layer.
 var defaultColourName = "grey/600";
+// The Settings key for the current shade variable.
+var CURRENT_SHADE_STORAGE_KEY = "howles:sketch-nudge-text:current-shade";
 
 /**
  * Apply the next text colour, depending on the choice of direction. If we reach
@@ -379,10 +385,23 @@ function getUniqueColoursWithShade(referenceOrder, colourName) {
   if (!isNonEmptyString(colourName)) {
     dd("Expected non-empty string <colourName>, received ".concat(getFriendlyDisplay(colourName)));
   }
+  var previousShade = Settings.settingForKey(CURRENT_SHADE_STORAGE_KEY) || "600";
   var _colourName$split = colourName.split('/'),
     _colourName$split2 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_colourName$split, 2),
     _colourName$split2$ = _colourName$split2[1],
-    desiredShade = _colourName$split2$ === void 0 ? "600" : _colourName$split2$;
+    desiredShade = _colourName$split2$ === void 0 ? previousShade : _colourName$split2$;
+  console.log({
+    previousShade: previousShade
+  });
+
+  // Update the current shade to match that of the current colour. We do this
+  // on each move for simplicity, but also for completeness, as the shade may
+  // change between colour jumps.
+  Settings.setSettingForKey(CURRENT_SHADE_STORAGE_KEY, desiredShade);
+  console.log({
+    desiredShade: desiredShade,
+    previousShade: previousShade
+  });
   return referenceOrder.filter(function (swatch) {
     return swatch.name.includes("/".concat(desiredShade)) || swatch.name === "white";
   });
@@ -666,6 +685,17 @@ function dd(message) {
 /***/ (function(module, exports) {
 
 module.exports = require("sketch/dom");
+
+/***/ }),
+
+/***/ "sketch/settings":
+/*!**********************************!*\
+  !*** external "sketch/settings" ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("sketch/settings");
 
 /***/ }),
 
