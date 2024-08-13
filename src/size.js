@@ -1,6 +1,11 @@
-const { dd, getFriendlyDisplay, isNonEmptyArray, isNonEmptyObject, isNumber } = require("./utils");
-const { getLibraryByName, getSelectedTextLayers, getTextColourSwatchForLayer } = require("./shared");
-const sketch = require("sketch/dom");
+import sketch from "sketch/dom";
+import { dd } from "./utils";
+import { getFriendlyDisplay } from "@lewishowles/helpers/dist/general.js";
+import { getLibraryByName, getSelectedTextLayers, getTextColourSwatchForLayer } from "./shared";
+import { isNonEmptyArray } from "@lewishowles/helpers/dist/array.js";
+import { isNonEmptyObject } from "@lewishowles/helpers/dist/object.js";
+import { isNumber } from "@lewishowles/helpers/dist/number.js";
+
 const document = sketch.getSelectedDocument();
 
 /**

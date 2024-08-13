@@ -1,5 +1,6 @@
-const { dd, getNextIndex, isNonEmptyArray } = require("./utils");
-const { getSelectedTextLayers } = require("./shared");
+import { dd } from "./utils";
+import { getNextIndex, isNonEmptyArray } from "@lewishowles/helpers/dist/array.js";
+import { getSelectedTextLayers } from "./shared";
 
 const referenceWeights = [
 	5, // Regular

@@ -13,7 +13,7 @@
  * If no current style is applied, the default, base style is applied.
  */
 
-const { applyNextFontSize } = require("./size");
+import { applyNextFontSize } from "./size";
 
 export default function() {
 	applyNextFontSize();

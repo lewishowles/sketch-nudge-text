@@ -6,7 +6,7 @@ This is primarily for my own use, and makes some assumptions based on my preferr
 
 ## Why?
 
-Changing the size, colour, or weight of text is a common task when designing UI, and reaching for the font menu each time slows that process down. Multiply that by dozens of times a day, and it becomes an inefficiency. Being able to assign keyboard shortcuts to the most common tasks also removes the need to take your eyes off the design, making it easier to compare options.
+Changing the size, colour, or weight of text is a common task when designing UI, and reaching for the font menu each time slows that process down. Multiply that by dozens of times a day, and it becomes an inefficiency. Being able to assign keyboard shortcuts to the most common tasks also removes the need to take your eyes off the design, making it easier to compare options. And who doesn’t want to save time by using keyboard shortcuts?!
 
 ## Changing font size
 

@@ -1,5 +1,8 @@
-const { dd, getFriendlyDisplay, isNonEmptyString } = require("./utils");
-const sketch = require("sketch/dom");
+import sketch from "sketch/dom";
+import { dd } from "./utils";
+import { getFriendlyDisplay } from "@lewishowles/helpers/dist/general.js";
+import { isNonEmptyString } from "@lewishowles/helpers/dist/string.js";
+
 const libraries = sketch.getLibraries();
 const document = sketch.getSelectedDocument();
 const selectedLayers = document.selectedLayers.layers;

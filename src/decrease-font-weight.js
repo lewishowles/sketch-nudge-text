@@ -4,7 +4,7 @@
  * chosen instead.
  */
 
-const { applyNextFontWeight } = require("./weight");
+import { applyNextFontWeight } from "./weight";
 
 export default function() {
 	applyNextFontWeight(true);

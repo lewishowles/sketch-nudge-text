@@ -14,7 +14,7 @@
  * If no colour can be found, a default grey 600 is applied.
  */
 
-const { applyNextColour } = require("./colour");
+import { applyNextColour } from "./colour";
 
 export default function() {
 	applyNextColour();

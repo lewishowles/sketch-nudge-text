@@ -1,7 +1,12 @@
-const { dd, getFriendlyDisplay, getNextIndex, isNonEmptyArray, isNonEmptyObject, isNonEmptyString } = require("./utils");
-const { getLibraryByName, getSelectedTextLayers, getTextColourSwatchForLayer } = require("./shared");
-const sketch = require("sketch/dom");
-const Settings = require('sketch/settings');
+import { dd } from "./utils";
+import { getFriendlyDisplay } from "@lewishowles/helpers/dist/general.js";
+import { getLibraryByName, getSelectedTextLayers, getTextColourSwatchForLayer } from "./shared";
+import { getNextIndex, isNonEmptyArray } from "@lewishowles/helpers/dist/array.js";
+import { isNonEmptyObject } from "@lewishowles/helpers/dist/object.js";
+import { isNonEmptyString } from "@lewishowles/helpers/dist/string.js";
+import sketch from "sketch/dom";
+import Settings from "sketch/settings";
+
 const document = sketch.getSelectedDocument();
 
 // The name of the colour to apply if no colour swatch is present on a text

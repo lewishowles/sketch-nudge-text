@@ -93,23 +93,174 @@ var exports =
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/@babel/runtime/helpers/typeof.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/typeof.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/@lewishowles/helpers/dist/array.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@lewishowles/helpers/dist/array.js ***!
+  \*********************************************************/
+/*! exports provided: arrayLength, firstDefined, getNextIndex, head, isNonEmptyArray, lastDefined, pluck, tail */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function _typeof(o) {
-  "@babel/helpers - typeof";
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayLength", function() { return g; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "firstDefined", function() { return h; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNextIndex", function() { return d; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "head", function() { return p; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "lastDefined", function() { return N; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pluck", function() { return E; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tail", function() { return b; });
+/* harmony import */ var _is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is-non-empty-object-C6mupIXN.js */ "./node_modules/@lewishowles/helpers/dist/is-non-empty-object-C6mupIXN.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isNonEmptyArray", function() { return _is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["i"]; });
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-    return typeof o;
-  } : function (o) {
-    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
+/* harmony import */ var _number_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./number.js */ "./node_modules/@lewishowles/helpers/dist/number.js");
+/* harmony import */ var _string_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./string.js */ "./node_modules/@lewishowles/helpers/dist/string.js");
+
+
+
+function g(n) {
+  return Object(_is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["i"])(n) ? n.length : 0;
 }
-module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
+function h(n) {
+  if (Object(_is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["i"])(n)) {
+    for (let t = 0; t < n.length; t++)
+      if (n[t] !== void 0)
+        return n[t];
+  }
+}
+function d(n, t, { reverse: f = !1, wrap: u = !1 } = {}) {
+  if (!Object(_number_js__WEBPACK_IMPORTED_MODULE_1__["isNumber"])(n) || !Object(_is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["i"])(t))
+    return 0;
+  const i = t.length;
+  if (n < 0 || n >= i)
+    return 0;
+  if (f ? n-- : n++, u) {
+    if (n < 0)
+      return i - 1;
+    if (n >= i)
+      return 0;
+  } else {
+    if (n < 0)
+      return 0;
+    if (n >= i)
+      return i - 1;
+  }
+  return n;
+}
+function p(n) {
+  if (Object(_is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["i"])(n))
+    return n[0];
+}
+function N(n) {
+  if (Object(_is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["i"])(n)) {
+    for (let t = n.length - 1; t >= 0; t--)
+      if (n[t] !== void 0)
+        return n[t];
+  }
+}
+function E(n, t) {
+  return !Object(_is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["i"])(n) || !Object(_string_js__WEBPACK_IMPORTED_MODULE_2__["isNonEmptyString"])(t) ? [] : n.reduce((f, u) => (Object(_is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["b"])(u) && f.push(u[t]), f), []);
+}
+function b(n) {
+  if (Object(_is_non_empty_object_C6mupIXN_js__WEBPACK_IMPORTED_MODULE_0__["i"])(n))
+    return n[n.length - 1];
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@lewishowles/helpers/dist/general.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@lewishowles/helpers/dist/general.js ***!
+  \***********************************************************/
+/*! exports provided: getFriendlyDisplay */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFriendlyDisplay", function() { return f; });
+function f(n) {
+  if (n === null)
+    return "<null>";
+  if (n === void 0)
+    return "<undefined>";
+  if (typeof n == "string")
+    return [n, `<string[${n.length}]>`].filter((t) => t).join(" ");
+  if (Array.isArray(n))
+    return `<array[${n.length}]>`;
+  if (typeof n == "object")
+    return `<object[${Object.keys(n).length}]>`;
+  if (isNaN(n))
+    return "<NaN>";
+  if (n === 1 / 0 || n === -1 / 0)
+    return "<infinity>";
+  if (typeof n == "number" && Number.isFinite(n))
+    return "<number>";
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@lewishowles/helpers/dist/is-non-empty-object-C6mupIXN.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@lewishowles/helpers/dist/is-non-empty-object-C6mupIXN.js ***!
+  \********************************************************************************/
+/*! exports provided: a, b, i */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return n; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return s; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return r; });
+function r(t) {
+  return Array.isArray(t) && t.length > 0;
+}
+function n(t) {
+  return typeof t == "object" && !Array.isArray(t) && t !== null;
+}
+function s(t) {
+  return n(t) && Object.keys(t).length > 0;
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@lewishowles/helpers/dist/number.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@lewishowles/helpers/dist/number.js ***!
+  \**********************************************************/
+/*! exports provided: isNumber */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNumber", function() { return n; });
+function n(e) {
+  return typeof e == "number" && !isNaN(e);
+}
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@lewishowles/helpers/dist/string.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@lewishowles/helpers/dist/string.js ***!
+  \**********************************************************/
+/*! exports provided: isNonEmptyString */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNonEmptyString", function() { return n; });
+function n(t) {
+  return typeof t == "string" && t.length > 0;
+}
+
+
 
 /***/ }),
 
@@ -122,16 +273,16 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _weight__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./weight */ "./src/weight.js");
 /**
  * Apply the next font weight from the defined series of preferred weights.
  * If the current weight isn't in the series, the default "regular" weight is
  * chosen instead.
  */
 
-var _require = __webpack_require__(/*! ./weight */ "./src/weight.js"),
-  applyNextFontWeight = _require.applyNextFontWeight;
+
 /* harmony default export */ __webpack_exports__["default"] = (function () {
-  applyNextFontWeight();
+  Object(_weight__WEBPACK_IMPORTED_MODULE_0__["applyNextFontWeight"])();
 });
 
 /***/ }),
@@ -148,13 +299,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getSelectedTextLayers", function() { return getSelectedTextLayers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getLibraryByName", function() { return getLibraryByName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTextColourSwatchForLayer", function() { return getTextColourSwatchForLayer; });
-var _require = __webpack_require__(/*! ./utils */ "./src/utils.js"),
-  dd = _require.dd,
-  getFriendlyDisplay = _require.getFriendlyDisplay,
-  isNonEmptyString = _require.isNonEmptyString;
-var sketch = __webpack_require__(/*! sketch/dom */ "sketch/dom");
-var libraries = sketch.getLibraries();
-var document = sketch.getSelectedDocument();
+/* harmony import */ var sketch_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch/dom */ "sketch/dom");
+/* harmony import */ var sketch_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch_dom__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./src/utils.js");
+/* harmony import */ var _lewishowles_helpers_dist_general_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @lewishowles/helpers/dist/general.js */ "./node_modules/@lewishowles/helpers/dist/general.js");
+/* harmony import */ var _lewishowles_helpers_dist_string_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @lewishowles/helpers/dist/string.js */ "./node_modules/@lewishowles/helpers/dist/string.js");
+
+
+
+
+var libraries = sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.getLibraries();
+var document = sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.getSelectedDocument();
 var selectedLayers = document.selectedLayers.layers;
 
 /**
@@ -175,15 +330,15 @@ function getSelectedTextLayers() {
  *     The name of the library to retrieve.
  */
 function getLibraryByName(libraryName) {
-  if (!isNonEmptyString(libraryName)) {
-    dd("Expected non-empty string <libraryName>, received ".concat(getFriendlyDisplay(libraryName), "."));
+  if (!Object(_lewishowles_helpers_dist_string_js__WEBPACK_IMPORTED_MODULE_3__["isNonEmptyString"])(libraryName)) {
+    Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("Expected non-empty string <libraryName>, received ".concat(Object(_lewishowles_helpers_dist_general_js__WEBPACK_IMPORTED_MODULE_2__["getFriendlyDisplay"])(libraryName), "."));
   }
-  var libraries = sketch.Library.getLibraries();
+  var libraries = sketch_dom__WEBPACK_IMPORTED_MODULE_0___default.a.Library.getLibraries();
   var library = libraries.find(function (library) {
     return library.name === libraryName;
   });
   if (!library) {
-    dd("The library \"".concat(libraryName, "\" couldn't be found."));
+    Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("The library \"".concat(libraryName, "\" couldn't be found."));
   }
   return library;
 }
@@ -219,138 +374,15 @@ function getTextColourSwatchForLayer(layer) {
 /*!**********************!*\
   !*** ./src/utils.js ***!
   \**********************/
-/*! exports provided: isNonEmptyString, isNonEmptyObject, isNonEmptyArray, isNumber, getNextIndex, getFriendlyDisplay, dd */
+/*! exports provided: dd */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNonEmptyString", function() { return isNonEmptyString; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNonEmptyObject", function() { return isNonEmptyObject; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNonEmptyArray", function() { return isNonEmptyArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNumber", function() { return isNumber; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNextIndex", function() { return getNextIndex; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFriendlyDisplay", function() { return getFriendlyDisplay; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dd", function() { return dd; });
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch/ui */ "sketch/ui");
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch_ui__WEBPACK_IMPORTED_MODULE_0__);
 
-var UI = __webpack_require__(/*! sketch/ui */ "sketch/ui");
-
-/**
- * Determine whether the given variable is a string and has a non-zero length.
- *
- * @param  {mixed}  variable
- *     The variable to test.
- */
-function isNonEmptyString(variable) {
-  return typeof variable === "string" && variable.length > 0;
-}
-
-/**
- * Determine whether the given variable is an object and has at least one
- * property.
- *
- * @param  {mixed}  variable
- *     The variable to test.
- */
-function isNonEmptyObject(variable) {
-  return !Array.isArray(variable) && variable !== null && _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(variable) === "object" && Object.keys(variable).length > 0;
-}
-
-/**
- * Determine whether the given variable is an array and has at least one entry.
- *
- * @param  {mixed}  variable
- *     The variable to test.
- */
-function isNonEmptyArray(variable) {
-  return Array.isArray(variable) && variable.length > 0;
-}
-
-/**
- * Determine whether the given variable is a number, and not NaN.
- *
- * @param  {mixed}  variable
- *     The variable to test.
- */
-function isNumber(variable) {
-  return typeof variable === "number" && !isNaN(variable);
-}
-
-/**
- * Get the next index, given the current index and the reference list.
- *
- * @param  {number}  index
- *     The current index.
- * @param  {array}  reference
- *     The reference list.
- * @param  {boolean}  options.reverse
- *     Whether to reverse direction, decreasing the index.
- * @param  {boolean}  options.wrap
- *     Whether to wrap to the other end of the list if at the end.
- */
-function getNextIndex(index, reference) {
-  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-    _ref$reverse = _ref.reverse,
-    reverse = _ref$reverse === void 0 ? false : _ref$reverse,
-    _ref$wrap = _ref.wrap,
-    wrap = _ref$wrap === void 0 ? false : _ref$wrap;
-  if (!isNumber(index) || !isNonEmptyArray(reference)) {
-    return 0;
-  }
-  var length = reference.length;
-  if (reverse) {
-    index--;
-  } else {
-    index++;
-  }
-  if (wrap) {
-    if (index < 0) {
-      return length - 1;
-    }
-    if (index >= length) {
-      return 0;
-    }
-  } else {
-    if (index < 0) {
-      return 0;
-    }
-    if (index >= length) {
-      return length - 1;
-    }
-  }
-  return index;
-}
-
-/**
- * Display the type of the given variable in a human-friendly way.
- *
- * @param  {mixed}  variable
- *     The variable to display.
- */
-function getFriendlyDisplay(variable) {
-  if (variable === null) {
-    return "<null>";
-  }
-  if (variable === undefined) {
-    return "<undefined>";
-  }
-  if (typeof variable === "string") {
-    return "".concat(variable, " <string>");
-  }
-  if (Array.isArray(variable)) {
-    return "".concat(variable.map(getFriendlyDisplay).join(", "), " <array[").concat(variable.length, "]>");
-  }
-  if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(variable) === "object") {
-    return "<object[".concat(Object.keys(variable).length, "]>");
-  }
-  if (variable === NaN) {
-    return "<NaN>";
-  }
-  if (typeof variable === 'number' && Number.isFinite(variable)) {
-    return "<number>";
-  }
-}
 
 /**
  * dd (Die and Display)
@@ -365,7 +397,7 @@ function dd(message) {
   if (!isNonEmptyString(message)) {
     dd("Expected non-empty string <message>, received ".concat(getFriendlyDisplay(message), "."));
   }
-  UI.message(message);
+  sketch_ui__WEBPACK_IMPORTED_MODULE_0___default.a.message(message);
   throw new Error(message);
 }
 
@@ -381,12 +413,12 @@ function dd(message) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyNextFontWeight", function() { return applyNextFontWeight; });
-var _require = __webpack_require__(/*! ./utils */ "./src/utils.js"),
-  dd = _require.dd,
-  getNextIndex = _require.getNextIndex,
-  isNonEmptyArray = _require.isNonEmptyArray;
-var _require2 = __webpack_require__(/*! ./shared */ "./src/shared.js"),
-  getSelectedTextLayers = _require2.getSelectedTextLayers;
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./src/utils.js");
+/* harmony import */ var _lewishowles_helpers_dist_array_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @lewishowles/helpers/dist/array.js */ "./node_modules/@lewishowles/helpers/dist/array.js");
+/* harmony import */ var _shared__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./shared */ "./src/shared.js");
+
+
+
 var referenceWeights = [5,
 // Regular
 6,
@@ -404,19 +436,19 @@ var referenceWeights = [5,
  */
 function applyNextFontWeight() {
   var reverse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  var textLayers = getSelectedTextLayers();
-  if (!isNonEmptyArray(textLayers)) {
-    dd("Please select a layer");
+  var textLayers = Object(_shared__WEBPACK_IMPORTED_MODULE_2__["getSelectedTextLayers"])();
+  if (!Object(_lewishowles_helpers_dist_array_js__WEBPACK_IMPORTED_MODULE_1__["isNonEmptyArray"])(textLayers)) {
+    Object(_utils__WEBPACK_IMPORTED_MODULE_0__["dd"])("Please select a layer");
   }
   textLayers.forEach(function (layer) {
     var currentIndex = referenceWeights.findIndex(function (weight) {
       return weight === layer.style.fontWeight;
     });
-    var nextIndex = getNextIndex(currentIndex, referenceWeights, {
+    var nextIndex = Object(_lewishowles_helpers_dist_array_js__WEBPACK_IMPORTED_MODULE_1__["getNextIndex"])(currentIndex, referenceWeights, {
       reverse: reverse
     });
     if (nextIndex < 0) {
-      dd("Couldn't determine the appropriate next weight");
+      Object(_utils__WEBPACK_IMPORTED_MODULE_0__["dd"])("Couldn't determine the appropriate next weight");
     }
     layer.style.fontWeight = referenceWeights[nextIndex];
   });
