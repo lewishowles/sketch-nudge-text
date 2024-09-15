@@ -88,7 +88,7 @@ var exports =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/next-colour.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/next-shade.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -706,10 +706,10 @@ function getShadesForColour(referenceOrder, colourName) {
 
 /***/ }),
 
-/***/ "./src/next-colour.js":
-/*!****************************!*\
-  !*** ./src/next-colour.js ***!
-  \****************************/
+/***/ "./src/next-shade.js":
+/*!***************************!*\
+  !*** ./src/next-shade.js ***!
+  \***************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -717,7 +717,7 @@ function getShadesForColour(referenceOrder, colourName) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _colour__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./colour */ "./src/colour.js");
 /**
- * Apply the next colour to the text.
+ * Apply the next shade of the current colour to the selected text layer(s).
  *
  * Font colours are imported based on a given library name. This is required so
  * that all colours can be referenced from any document, even if that document
@@ -726,15 +726,14 @@ __webpack_require__.r(__webpack_exports__);
  * The sequence of colours is determined by the arrangement of colours in the
  * library - which is usually alphabetical.
  *
- * If no text colour can be found, the colours wrap back to the start of the
- * list.
+ * If no shade can be found, the colours wrap back to the start of the list.
  *
  * If no colour can be found, a default grey 600 is applied.
  */
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
-  Object(_colour__WEBPACK_IMPORTED_MODULE_0__["applyNextColour"])();
+  Object(_colour__WEBPACK_IMPORTED_MODULE_0__["applyNextShade"])();
 });
 
 /***/ }),
@@ -906,4 +905,4 @@ module.exports = require("sketch/ui");
 }
 globalThis['onRun'] = __skpm_run.bind(this, 'default')
 
-//# sourceMappingURL=__next-colour.js.map
+//# sourceMappingURL=__next-shade.js.map

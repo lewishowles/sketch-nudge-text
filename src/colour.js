@@ -20,7 +20,7 @@ const CURRENT_SHADE_STORAGE_KEY = "howles:sketch-nudge-text:current-shade";
  * the end of the list, wrap back to the start.
  *
  * @param  {boolean}  reverse
- *     Whether to reverse the direction, decreasing font order of colours.
+ *     Whether to reverse the direction, swapping the order of colours.
  */
 export function applyNextColour(reverse = false) {
 	const textLayers = getSelectedTextLayers();
@@ -37,6 +37,37 @@ export function applyNextColour(reverse = false) {
 
 		if (!isNonEmptyObject(nextColour)) {
 			dd("Couldn't determine the appropriate next colour");
+		}
+
+		if (nextColour.referencingColor) {
+			layer.style.textColor = nextColour.referencingColor;
+		}
+	});
+}
+
+
+/**
+ * Apply the next shade of the current text colour, depending on the choice of
+ * direction. If we reach the end of the list, wrap back to the start.
+ *
+ * @param  {boolean}  reverse
+ *     Whether to reverse the direction, swapping the order of shades.
+ */
+export function applyNextShade(reverse = false) {
+	const textLayers = getSelectedTextLayers();
+
+	if (!isNonEmptyArray(textLayers)) {
+		dd("Please select a layer");
+	}
+
+	const referenceOrder = initialiseAvailableColours();
+
+	textLayers.forEach(layer => {
+		const currentColour = getTextColourSwatchForLayer(layer);
+		const nextColour = getNextShade(currentColour, referenceOrder, reverse);
+
+		if (!isNonEmptyObject(nextColour)) {
+			dd("Couldn't determine the appropriate next shade");
 		}
 
 		if (nextColour.referencingColor) {
@@ -118,9 +149,45 @@ function getNextColour(currentSwatch, referenceOrder, reverse = false) {
 	return uniqueColours[nextIndex];
 }
 
+
+/**
+ * Get the next appropriate shade from the provided reference. For colours
+ * labelled "colour/shade", we find the matching colour, and look for the
+ * sibling shades
+ *
+ * If we're at the end of the reference array, we wrap to the other end.
+ *
+ * @param  {object}  currentSwatch
+ *     The current colour swatch applied to the layer.
+ * @param  {array}  referenceOrder
+ *     The list of colours to use as a reference.
+ * @param  {boolean}  reverse
+ *     Whether to reverse direction, moving backwards.
+ */
+function getNextShade(currentSwatch, referenceOrder, reverse = false) {
+	// If we don't have valid reference, we can't continue, as we can't pick a
+	// style from nothing.
+	if (!isNonEmptyArray(referenceOrder)) {
+		dd("Couldn't find the list of available colours to reference");
+	}
+
+	const currentColour = referenceOrder.find(reference => reference.name === currentSwatch.name);
+
+	// If we can't find a current colour, revert to a default.
+	if (!isNonEmptyObject(currentColour)) {
+		return referenceOrder.find(reference => reference.name === defaultColourName);
+	}
+
+	const shades = getShadesForColour(referenceOrder, currentColour.name);
+	const currentIndex = shades.findIndex(swatch => swatch.name === currentColour.name);
+	const nextIndex = getNextIndex(currentIndex, shades, { reverse, wrap: true });
+
+	return shades[nextIndex];
+}
+
 /**
  * Given all colours as a reference, reduce the list to a unique set of colours
- * matching the same shade. For example, "red/600" would product "red/600",
+ * matching the same shade. For example, "red/600" would produce "red/600",
  * "blue/600", "purple/600", etc.
  */
 function getUniqueColoursWithShade(referenceOrder, colourName) {
@@ -144,4 +211,33 @@ function getUniqueColoursWithShade(referenceOrder, colourName) {
 	Settings.setSettingForKey(CURRENT_SHADE_STORAGE_KEY, desiredShade)
 
 	return referenceOrder.filter(swatch => swatch.name.includes(`/${desiredShade}`) || swatch.name === "white");
+}
+
+/**
+ * Given all colours as a reference, reduce the list to a unique set of shades
+ * matching the current colour. For example, "purple/600" would produce
+ * "purple/50", "purple/100", "purple/200", etc.
+ */
+function getShadesForColour(referenceOrder, colourName) {
+	// If we don't have valid reference, we can't continue, as we can't pick a
+	// style from nothing.
+	if (!isNonEmptyArray(referenceOrder)) {
+		dd("Couldn't find the list of available colours to reference");
+	}
+
+	if (!isNonEmptyString(colourName)) {
+		dd(`Expected non-empty string <colourName>, received ${getFriendlyDisplay(colourName)}`);
+	}
+
+	const [desiredColour, ] = colourName.split('/');
+
+	const swatches = referenceOrder.filter(swatch => swatch.name.includes(`${desiredColour}/`));
+
+	swatches.sort((a, b) => {
+		const numA = parseInt(a.name.split('/')[1]);
+		const numB = parseInt(b.name.split('/')[1]);
+		return numA - numB;
+	});
+
+	return swatches;
 }

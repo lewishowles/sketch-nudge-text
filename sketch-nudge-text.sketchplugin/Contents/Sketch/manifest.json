@@ -38,6 +38,18 @@
       "identifier": "sketch-nudge-text.previous-colour",
       "script": "__previous-colour.js",
       "shortcut": "ctrl option cmd ←"
+    },
+    {
+      "name": "Next shade",
+      "identifier": "sketch-nudge-text.next-shade",
+      "script": "__next-shade.js",
+      "shortcut": "ctrl option cmd ↓"
+    },
+    {
+      "name": "Previous shade",
+      "identifier": "sketch-nudge-text.previous-shade",
+      "script": "__previous-shade.js",
+      "shortcut": "ctrl option cmd ↑"
     }
   ],
   "menu": {
@@ -48,10 +60,12 @@
       "sketch-nudge-text.increase-font-weight",
       "sketch-nudge-text.decrease-font-weight",
       "sketch-nudge-text.next-colour",
-      "sketch-nudge-text.previous-colour"
+      "sketch-nudge-text.previous-colour",
+      "sketch-nudge-text.next-shade",
+      "sketch-nudge-text.previous-shade"
     ]
   },
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Quickly nudge text between font sizes, weights, and colours",
   "identifier": "sketch-nudge-text",
   "disableCocoaScriptPreprocessor": true,

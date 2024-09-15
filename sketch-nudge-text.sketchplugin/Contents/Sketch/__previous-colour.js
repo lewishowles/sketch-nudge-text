@@ -438,12 +438,13 @@ function n(t) {
 /*!***********************!*\
   !*** ./src/colour.js ***!
   \***********************/
-/*! exports provided: applyNextColour, initialiseAvailableColours */
+/*! exports provided: applyNextColour, applyNextShade, initialiseAvailableColours */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyNextColour", function() { return applyNextColour; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyNextShade", function() { return applyNextShade; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialiseAvailableColours", function() { return initialiseAvailableColours; });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
@@ -479,7 +480,7 @@ var CURRENT_SHADE_STORAGE_KEY = "howles:sketch-nudge-text:current-shade";
  * the end of the list, wrap back to the start.
  *
  * @param  {boolean}  reverse
- *     Whether to reverse the direction, decreasing font order of colours.
+ *     Whether to reverse the direction, swapping the order of colours.
  */
 function applyNextColour() {
   var reverse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
@@ -493,6 +494,32 @@ function applyNextColour() {
     var nextColour = getNextColour(currentColour, referenceOrder, reverse);
     if (!Object(_lewishowles_helpers_dist_object_js__WEBPACK_IMPORTED_MODULE_5__["isNonEmptyObject"])(nextColour)) {
       Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("Couldn't determine the appropriate next colour");
+    }
+    if (nextColour.referencingColor) {
+      layer.style.textColor = nextColour.referencingColor;
+    }
+  });
+}
+
+/**
+ * Apply the next shade of the current text colour, depending on the choice of
+ * direction. If we reach the end of the list, wrap back to the start.
+ *
+ * @param  {boolean}  reverse
+ *     Whether to reverse the direction, swapping the order of shades.
+ */
+function applyNextShade() {
+  var reverse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var textLayers = Object(_shared__WEBPACK_IMPORTED_MODULE_3__["getSelectedTextLayers"])();
+  if (!Object(_lewishowles_helpers_dist_array_js__WEBPACK_IMPORTED_MODULE_4__["isNonEmptyArray"])(textLayers)) {
+    Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("Please select a layer");
+  }
+  var referenceOrder = initialiseAvailableColours();
+  textLayers.forEach(function (layer) {
+    var currentColour = Object(_shared__WEBPACK_IMPORTED_MODULE_3__["getTextColourSwatchForLayer"])(layer);
+    var nextColour = getNextShade(currentColour, referenceOrder, reverse);
+    if (!Object(_lewishowles_helpers_dist_object_js__WEBPACK_IMPORTED_MODULE_5__["isNonEmptyObject"])(nextColour)) {
+      Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("Couldn't determine the appropriate next shade");
     }
     if (nextColour.referencingColor) {
       layer.style.textColor = nextColour.referencingColor;
@@ -579,8 +606,50 @@ function getNextColour(currentSwatch, referenceOrder) {
 }
 
 /**
+ * Get the next appropriate shade from the provided reference. For colours
+ * labelled "colour/shade", we find the matching colour, and look for the
+ * sibling shades
+ *
+ * If we're at the end of the reference array, we wrap to the other end.
+ *
+ * @param  {object}  currentSwatch
+ *     The current colour swatch applied to the layer.
+ * @param  {array}  referenceOrder
+ *     The list of colours to use as a reference.
+ * @param  {boolean}  reverse
+ *     Whether to reverse direction, moving backwards.
+ */
+function getNextShade(currentSwatch, referenceOrder) {
+  var reverse = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  // If we don't have valid reference, we can't continue, as we can't pick a
+  // style from nothing.
+  if (!Object(_lewishowles_helpers_dist_array_js__WEBPACK_IMPORTED_MODULE_4__["isNonEmptyArray"])(referenceOrder)) {
+    Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("Couldn't find the list of available colours to reference");
+  }
+  var currentColour = referenceOrder.find(function (reference) {
+    return reference.name === currentSwatch.name;
+  });
+
+  // If we can't find a current colour, revert to a default.
+  if (!Object(_lewishowles_helpers_dist_object_js__WEBPACK_IMPORTED_MODULE_5__["isNonEmptyObject"])(currentColour)) {
+    return referenceOrder.find(function (reference) {
+      return reference.name === defaultColourName;
+    });
+  }
+  var shades = getShadesForColour(referenceOrder, currentColour.name);
+  var currentIndex = shades.findIndex(function (swatch) {
+    return swatch.name === currentColour.name;
+  });
+  var nextIndex = Object(_lewishowles_helpers_dist_array_js__WEBPACK_IMPORTED_MODULE_4__["getNextIndex"])(currentIndex, shades, {
+    reverse: reverse,
+    wrap: true
+  });
+  return shades[nextIndex];
+}
+
+/**
  * Given all colours as a reference, reduce the list to a unique set of colours
- * matching the same shade. For example, "red/600" would product "red/600",
+ * matching the same shade. For example, "red/600" would produce "red/600",
  * "blue/600", "purple/600", etc.
  */
 function getUniqueColoursWithShade(referenceOrder, colourName) {
@@ -605,6 +674,34 @@ function getUniqueColoursWithShade(referenceOrder, colourName) {
   return referenceOrder.filter(function (swatch) {
     return swatch.name.includes("/".concat(desiredShade)) || swatch.name === "white";
   });
+}
+
+/**
+ * Given all colours as a reference, reduce the list to a unique set of shades
+ * matching the current colour. For example, "purple/600" would produce
+ * "purple/50", "purple/100", "purple/200", etc.
+ */
+function getShadesForColour(referenceOrder, colourName) {
+  // If we don't have valid reference, we can't continue, as we can't pick a
+  // style from nothing.
+  if (!Object(_lewishowles_helpers_dist_array_js__WEBPACK_IMPORTED_MODULE_4__["isNonEmptyArray"])(referenceOrder)) {
+    Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("Couldn't find the list of available colours to reference");
+  }
+  if (!Object(_lewishowles_helpers_dist_string_js__WEBPACK_IMPORTED_MODULE_6__["isNonEmptyString"])(colourName)) {
+    Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("Expected non-empty string <colourName>, received ".concat(Object(_lewishowles_helpers_dist_general_js__WEBPACK_IMPORTED_MODULE_2__["getFriendlyDisplay"])(colourName)));
+  }
+  var _colourName$split3 = colourName.split('/'),
+    _colourName$split4 = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(_colourName$split3, 1),
+    desiredColour = _colourName$split4[0];
+  var swatches = referenceOrder.filter(function (swatch) {
+    return swatch.name.includes("".concat(desiredColour, "/"));
+  });
+  swatches.sort(function (a, b) {
+    var numA = parseInt(a.name.split('/')[1]);
+    var numB = parseInt(b.name.split('/')[1]);
+    return numA - numB;
+  });
+  return swatches;
 }
 
 /***/ }),
