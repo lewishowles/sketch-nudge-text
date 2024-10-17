@@ -65,7 +65,7 @@
       "sketch-nudge-text.previous-shade"
     ]
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Quickly nudge text between font sizes, weights, and colours",
   "identifier": "sketch-nudge-text",
   "disableCocoaScriptPreprocessor": true,

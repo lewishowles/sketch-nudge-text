@@ -533,7 +533,7 @@ function applyNextShade() {
  */
 function initialiseAvailableColours() {
   // Get the desired colour library by name.
-  var colourLibrary = Object(_shared__WEBPACK_IMPORTED_MODULE_3__["getLibraryByName"])("Colours");
+  var colourLibrary = Object(_shared__WEBPACK_IMPORTED_MODULE_3__["getLibraryByName"])("howles design system");
 
   // Import any found colours into the current document.
   return importColoursFromLibrary(colourLibrary);
@@ -552,7 +552,7 @@ function importColoursFromLibrary(library) {
   }
   var importableColours = library.getImportableSwatchReferencesForDocument(document);
   if (!Object(_lewishowles_helpers_dist_array_js__WEBPACK_IMPORTED_MODULE_4__["isNonEmptyArray"])(importableColours)) {
-    Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("No importable text styles could be found in the library \"".concat(libraryName, "\"."));
+    Object(_utils__WEBPACK_IMPORTED_MODULE_1__["dd"])("No importable colours could be found in the library \"".concat(library.name, "\"."));
   }
 
   // Import all shared text styles into the document, just in case.
@@ -831,8 +831,10 @@ function getTextColourSwatchForLayer(layer) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dd", function() { return dd; });
-/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch/ui */ "sketch/ui");
-/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch_ui__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lewishowles_helpers_dist_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @lewishowles/helpers/dist/string.js */ "./node_modules/@lewishowles/helpers/dist/string.js");
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch/ui */ "sketch/ui");
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_ui__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 /**
@@ -845,10 +847,10 @@ __webpack_require__.r(__webpack_exports__);
  *     The message to display to the user.
  */
 function dd(message) {
-  if (!isNonEmptyString(message)) {
+  if (!Object(_lewishowles_helpers_dist_string_js__WEBPACK_IMPORTED_MODULE_0__["isNonEmptyString"])(message)) {
     dd("Expected non-empty string <message>, received ".concat(getFriendlyDisplay(message), "."));
   }
-  sketch_ui__WEBPACK_IMPORTED_MODULE_0___default.a.message(message);
+  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message(message);
   throw new Error(message);
 }
 

@@ -1,3 +1,4 @@
+import { isNonEmptyString } from "@lewishowles/helpers/dist/string.js";
 import UI from "sketch/ui";
 
 /**

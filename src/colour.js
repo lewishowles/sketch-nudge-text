@@ -82,7 +82,7 @@ export function applyNextShade(reverse = false) {
  */
 export function initialiseAvailableColours() {
 	// Get the desired colour library by name.
-	const colourLibrary = getLibraryByName("Colours");
+	const colourLibrary = getLibraryByName("howles design system");
 
 	// Import any found colours into the current document.
 	return importColoursFromLibrary(colourLibrary);
@@ -103,7 +103,7 @@ function importColoursFromLibrary(library) {
 	const importableColours = library.getImportableSwatchReferencesForDocument((document));
 
 	if (!isNonEmptyArray(importableColours)) {
-		dd(`No importable text styles could be found in the library "${libraryName}".`);
+		dd(`No importable colours could be found in the library "${library.name}".`);
 	}
 
 	// Import all shared text styles into the document, just in case.

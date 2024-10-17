@@ -61,7 +61,7 @@ export function initialiseAvailableFontStyles() {
 	// Get the desired font library by name.
 	// TODO: Make this user input that is stored for next time.
 	// TODO: When the input is stored, allow it to be changed.
-	const fontLibrary = getLibraryByName("Fonts");
+	const fontLibrary = getLibraryByName("howles design system");
 
 	// Import any found styles into the current document.
 	const importedTextStyles = importSharedTextStylesFromLibrary(fontLibrary);

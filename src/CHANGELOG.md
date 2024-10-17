@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.1
+
+Updated default library to use "howles design system", as per personal development workflow.
+
 ## v1.0.0
 
 Added four new commands:

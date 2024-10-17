@@ -507,7 +507,7 @@ function initialiseAvailableFontStyles() {
   // Get the desired font library by name.
   // TODO: Make this user input that is stored for next time.
   // TODO: When the input is stored, allow it to be changed.
-  var fontLibrary = Object(_shared__WEBPACK_IMPORTED_MODULE_3__["getLibraryByName"])("Fonts");
+  var fontLibrary = Object(_shared__WEBPACK_IMPORTED_MODULE_3__["getLibraryByName"])("howles design system");
 
   // Import any found styles into the current document.
   var importedTextStyles = importSharedTextStylesFromLibrary(fontLibrary);
@@ -628,8 +628,10 @@ function getNextStyle(currentSharedStyleId, referenceOrder) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dd", function() { return dd; });
-/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sketch/ui */ "sketch/ui");
-/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sketch_ui__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lewishowles_helpers_dist_string_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @lewishowles/helpers/dist/string.js */ "./node_modules/@lewishowles/helpers/dist/string.js");
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sketch/ui */ "sketch/ui");
+/* harmony import */ var sketch_ui__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sketch_ui__WEBPACK_IMPORTED_MODULE_1__);
+
 
 
 /**
@@ -642,10 +644,10 @@ __webpack_require__.r(__webpack_exports__);
  *     The message to display to the user.
  */
 function dd(message) {
-  if (!isNonEmptyString(message)) {
+  if (!Object(_lewishowles_helpers_dist_string_js__WEBPACK_IMPORTED_MODULE_0__["isNonEmptyString"])(message)) {
     dd("Expected non-empty string <message>, received ".concat(getFriendlyDisplay(message), "."));
   }
-  sketch_ui__WEBPACK_IMPORTED_MODULE_0___default.a.message(message);
+  sketch_ui__WEBPACK_IMPORTED_MODULE_1___default.a.message(message);
   throw new Error(message);
 }
 
